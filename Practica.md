@@ -129,9 +129,9 @@ Copia lo sigueinte y pegalo en el archivo recien creado.
 <hibernate-configuration>
     <session-factory>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="connection.url">jdbc:mysql://localhost/hibernate1</property>
-    <property name="connection.username">hibernate1</property>
-    <property name="connection.password">hibernate1</property>
+    <property name="connection.url">jdbc:mysql://sql9.freesqldatabase.com:3306/sql9579656</property>
+    <property name="connection.username">sql9579656</property>
+    <property name="connection.password">sJDimXFGP4</property>
     <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.show_sql">true</property>
     </session-factory>
@@ -139,15 +139,7 @@ Copia lo sigueinte y pegalo en el archivo recien creado.
 
 ```
 
-A continuacion te doy los datos de la base de datos que ocuparas acceder
-
-Host: sql9.freesqldatabase.com
-Database name: sql9579656
-Database user: sql9579656
-Database password: sJDimXFGP4
-Port number: 3306
-
-Asignamos los datos en sus respectivos valores y terminaremos con este archivo de configuracion de hibernate. (En la sesion se explica lo que hace cada propiedad).
+Esta es la configuracion de hibernate y ya esta lista para ser conectada a nuestra base de datos para la sesion.
 
 ## Creando Clase
 
@@ -225,12 +217,15 @@ Ahora bien, en un inicio de ocupa agregar una instruccion en el hibernate.cfg.xm
 En nuestra misma clase ingeniero, importaremos "javax.persistence.*" (el * para no repetir cada anotacion), y agregaremos las anotaciones @Entity , @Table y @Column en sus respectivos espacios, como se muestra a continuacion.
 
 ``` java
-@Entity
+
+@Entity //no se te olvide copiar este
 
 
-@Table (name= "ingenieros") // El nombre de la tabla de la base de datos
+@Table (name= "Ingenieros") // El nombre de la tabla de la base de datos
 public class ingeniero {
-    @Column (name= "id") //nombre de la columna de la base de datos
+
+	@Id
+    @Column (name= "id") //nombre de la columna de la base de datos, mantelos asi
 	private int id;
 
     @Column (name= "nombre")
@@ -265,7 +260,7 @@ public class inicio {
 	public static void main(String[] args) {
 		
 		Configuration confi = new Configuration().configure("hibernate.cfg.xml"); //Usamos la configuracion realizada en el archivo hibernate
-		confi.addAnnotatedClass(player.class); //agregamos el mapeo de nuestra clase
+		confi.addAnnotatedClass(ingeniero.class); //agregamos el mapeo de nuestra clase
 		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(confi.getProperties()); //contruimos un servicio con lo que esta en la configuracion
 		
 		
@@ -273,7 +268,8 @@ public class inicio {
 		Session session = factory.openSession();
 		Transaction trans = session.beginTransaction();
 
-        //Proceso de CRUD que desee realizar 
+        //CRUD 
+		
         trans.commit();
 		session.close();
 	}
@@ -282,15 +278,50 @@ public class inicio {
 
 ```
 
-Por ultimo, especificamos que queremos realizar en el CRUD. En el cual, en vez de tener clases para separar la generacio de la conexion y donde se realiza el query. Se reducira en estas simples funciones.
+## Especificamos funciones CRUD
 
+Por ultimo, especificamos que queremos realizar en el CRUD. Solo agrega el codigo correspondiente en tu main en dondeesta comentado como //CRUD.
+
+Remplazando donde este el comentario "CRUD". : )
+
+### CREATE
 
 ``` java
 
-	session.save(); // Create
-	session.get(player.class, 03); // Read
-	session.update(p1); // Update
-	session.delete(p1); // Delete
+	//                            Escribe un id 
+	ingeniero persona = new ingeniero(000,"tu nombre","escribe algo max 50 digitos");
+	session.save(persona); // Create
 
 ```
-Remplazando donde este el comentario "CRUD". : )
+
+### READ
+
+``` java
+
+	// busca mediante el id el ingeniero que buscas
+	ingeniero persona = session.get(ingeniero.class, 03); // Read
+	System.out.println(persona.toString());
+
+```
+
+### UPDATE
+
+``` java
+
+	ingeniero persona = new ingeniero(000,"tu nombre","cambia este parametro");
+	session.update(persona); // Update
+
+```
+
+### DELETE
+
+``` java
+
+	ingeniero persona = new ingeniero(000,"tu nombre","Dejalo igual a la ultima vez");
+	session.delete(ppersona); // Delete
+
+```
+
+## Registro de que hiciste la Actividad 
+
+Solo has un CREATE a la base de datos que dimos para tener un registro de que participaste.
