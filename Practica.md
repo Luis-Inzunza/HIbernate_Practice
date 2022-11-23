@@ -318,7 +318,7 @@ Remplazando donde este el comentario "CRUD". : )
 ``` java
 
 	ingeniero persona = new ingeniero(000,"tu nombre","Dejalo igual a la ultima vez");
-	session.delete(ppersona); // Delete
+	session.delete(persona); // Delete
 
 ```
 
