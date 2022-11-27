@@ -26,3 +26,5 @@ Esto fue realizado con el IDE Eclipse de 2022-09 instalado de manera "Eclipse ID
 * [Presentación](/Hibernate.pdf)
 
 * [Sesion Practica](/Practica.md)
+
+* [Video de Exposición](https://youtu.be/xu6JaAqIQkU)
